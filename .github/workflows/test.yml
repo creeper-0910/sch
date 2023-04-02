@@ -7,13 +7,15 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - name: Screenshots
+    - name: Setup
       run: |
         curl -fsSL https://ppa.ablaze.one/KEY.gpg | sudo gpg --dearmor -o /usr/share/keyrings/Floorp.gpg
         sudo curl -sS --compressed -o /etc/apt/sources.list.d/Floorp.list 'https://ppa.ablaze.one/Floorp.list'
         sudo apt update
         sudo apt install imagemagick floorp openbox obconf xorg
         Xvfb :2 -screen 0 1920x1080x24 &
+    - name: Screenshots
+      run: |
         export DISPLAY=:2
         sleep 5
         /usr/bin/openbox-session &
